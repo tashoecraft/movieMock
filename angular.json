@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "movieMock"
+    }
+  },
+  "defaultProject": "movieMock",
+  "cli": {
+    "analytics": false
+  }
 }

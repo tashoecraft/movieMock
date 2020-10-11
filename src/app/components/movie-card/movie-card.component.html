@@ -1,0 +1,14 @@
+<div class="movie-card" *ngIf="movie">
+  <div class="movie-card-left-column">
+    <img [src]="movie.Poster" [alt]="movie.Title + ' poster'"/>
+  </div>
+  <div class="movie-card-right-column">
+    <h2>{{movie.Title}}</h2>
+    <div>rating, time, release date</div>
+    <p>plot</p>
+    <div>
+      <button>View on IMDB</button>
+    </div>
+  </div>
+
+</div>
