@@ -28,7 +28,7 @@ export const GetAllMoviesFail = createAction(
 
 export const GetMovie = createAction(
   MovieActionTypes.GET_MOVIE,
-  props<{movieId: string}>()
+  props<{imdbID: string}>()
 );
 
 export const GetMovieSuccess = createAction(
@@ -38,7 +38,7 @@ export const GetMovieSuccess = createAction(
 
 export const GetMovieFail = createAction(
   MovieActionTypes.GET_MOVIE_FAIL,
-  props<{error: Error}>()
+  props<{error: Error, imdbID: string}>()
 );
 
 

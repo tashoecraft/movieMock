@@ -1,13 +1,21 @@
 <div class="movie-card" *ngIf="movie">
   <div class="movie-card-left-column">
-    <img [src]="movie.Poster" [alt]="movie.Title + ' poster'"/>
+    <img [src]="movie.Poster" [alt]="movie.Title + ' poster'" onerror="this.onerror=null;this.src='/assets/lego_batman.jpeg';"/>
   </div>
   <div class="movie-card-right-column">
-    <h2>{{movie.Title}}</h2>
-    <div>rating, time, release date</div>
-    <p>plot</p>
-    <div>
-      <button>View on IMDB</button>
+    <div class="movie-data">
+      <h2>{{movie.Title}}</h2>
+      <div class="content-bar">
+        <div class="rating-runtime">
+          <p class="rating">{{movieDetails?.Rated}}</p>
+          <p class="runtime">{{movieDetails?.Runtime}}</p>
+        </div>
+        <p>{{movieDetails?.Released}}</p>
+      </div>
+      <p>{{movieDetails?.Plot}}</p>
+    </div>
+    <div class="action-items">
+      <a class="imdb-link"mat-flat-button [disableRipple]="true" [href]="'https://www.imdb.com/title/' + movie.imdbID" target="_blank">View on IMDB</a>
     </div>
   </div>
 

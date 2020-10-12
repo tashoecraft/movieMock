@@ -5,6 +5,7 @@ import * as MovieActions from './actions';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {MovieLite} from '../models';
 import {of} from 'rxjs';
+import { SessionStorageService} from '../services/session_storage.service';
 
 
 @Injectable()
@@ -14,6 +15,7 @@ export class MovieEffects {
     ofType(MovieActions.GetAllMovies),
     mergeMap(({searchTerm}) => this.movieService.getMovies(searchTerm).pipe(
       map((results: MovieLite[]) => {
+
         return MovieActions.GetAllMoviesSuccess({results});
       }),
       catchError(error => {
@@ -22,6 +24,24 @@ export class MovieEffects {
     ))
   ));
 
+  getMovieSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(MovieActions.GetAllMoviesSuccess),
+    mergeMap(({results}) => {
+        return results.map(({imdbID}) => {
+          return MovieActions.GetMovie({imdbID});
+        });
+    })
+  ));
+
+  getMovieDetails$ = createEffect(() => this.actions$.pipe(
+    ofType(MovieActions.GetMovie),
+    mergeMap(({imdbID}) => {
+      return this.movieService.getMovieById(imdbID).pipe(
+        map((movieDetails) => MovieActions.GetMovieSuccess({result: movieDetails})),
+        catchError(error => of(MovieActions.GetMovieFail({error, imdbID})))
+      );
+    })
+  ));
 
 
   constructor(

@@ -1,7 +1,21 @@
 
-<div *ngFor="let movie of movieList$ | async">
-  {{movie.imdbID}}
+<header>
+  <h1>Welcome to the home of Batman movies!</h1>
+</header>
+<nav>
+  <button mat-flat-button
+          [disableRipple]="true"
+          *ngFor="let decade of decades"
+          [ngClass]="currentSelectedDecade === decade ? 'active': 'inactive'"
+          [aria-pressed]="currentSelectedDecade === decade"
+          (click)="updateDecade$.next(decade)"
+  >
+     {{decade}}'s
+  </button>
+</nav>
+<div class="movie-list" *ngFor="let movie of movieListFilteredByYear$ | async">
   <app-movie-card
     [movie]="movie"
+    [movieDetails]="movieDetailsHash[movie.imdbID] | async"
   ></app-movie-card>
 </div>

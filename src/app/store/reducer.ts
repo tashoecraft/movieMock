@@ -34,3 +34,11 @@ export const selectMovieList = createSelector(
   (state: State) => state.results
 );
 
+export const selectMovieDetailsByimdbID = (imdbID: string) => {
+  return createSelector(
+    selectMovieState,
+    (state: State) => state.movies[imdbID]
+  );
+};
+
+

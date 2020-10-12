@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
-import {MovieLite} from '../../models';
+import {MovieFull, MovieLite} from '../../models';
 
 @Component({
   selector: 'app-movie-card',
@@ -13,6 +13,7 @@ export class MovieCardComponent implements OnInit {
 
   @Input() movie: MovieLite;
 
+  @Input() movieDetails: MovieFull;
   ngOnInit(): void {
   }
 

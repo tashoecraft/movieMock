@@ -1,0 +1,25 @@
+header {
+  display: flex;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  button {
+    background: #F7F8F9;
+    border: 1px solid #C2CAD0;
+    font-size: 14px;
+    color: #61696E;
+  }
+
+  .active {
+    background-color: #1A72B0;
+    color: white;
+  }
+
+}
+
+
+
