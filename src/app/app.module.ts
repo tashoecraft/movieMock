@@ -18,12 +18,16 @@ import { MovieCardComponent } from './components/movie-card/movie-card.component
 import { MatButtonModule } from '@angular/material/button';
 import {RouterModule} from '@angular/router';
 import {SessionStorageService} from './services/session_storage.service';
+import {ContentLoaderModule} from '@ngneat/content-loader';
+import { ErrorHandlerComponent } from './components/error-handler/error-handler.component';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MovieCardComponent
+    MovieCardComponent,
+    ErrorHandlerComponent
   ],
   imports: [
     BrowserModule,
@@ -34,10 +38,12 @@ import {SessionStorageService} from './services/session_storage.service';
     StoreRouterConnectingModule.forRoot(),
     RouterModule.forRoot(routes),
     StoreDevtoolsModule.instrument({
-      maxAge: 25, // Retains last 25 states
-      logOnly: environment.production, // Restrict extension to log-only mode
+      maxAge: 25,
+      logOnly: environment.production,
     }),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatIconModule,
+    ContentLoaderModule
   ],
   providers: [MovieService, SessionStorageService],
   bootstrap: [AppComponent]

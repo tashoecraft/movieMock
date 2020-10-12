@@ -8,21 +8,22 @@ export enum MovieActionTypes {
   GET_MOVIE = '[MOVIES API] GET MOVIE',
   GET_MOVIE_SUCCESS = '[MOVIES API] GET MOVIE SUCCESS',
   GET_MOVIE_FAIL = '[MOVIES_API] GET MOVIE FAIL',
+  CLEAR_ERROR_MESSAGE = '[MOVIES ERROR] CLEAR ERROR MESSAGE'
 }
 
 export const GetAllMovies = createAction(
   MovieActionTypes.GET_ALL_MOVIES,
-  props<{searchTerm: string}>()
+  props<{searchTerm: string, page?: number}>()
 );
 
 export const GetAllMoviesSuccess = createAction(
   MovieActionTypes.GET_ALL_MOVIES_SUCCESS,
-  props<{results: MovieLite[]}>()
+  props<{results: MovieLite[], page?: number}>()
 );
 
 export const GetAllMoviesFail = createAction(
   MovieActionTypes.GET_ALL_MOVIES_FAIL,
-  props<{error: Error}>()
+  props<{error: string}>()
 );
 
 
@@ -38,7 +39,9 @@ export const GetMovieSuccess = createAction(
 
 export const GetMovieFail = createAction(
   MovieActionTypes.GET_MOVIE_FAIL,
-  props<{error: Error, imdbID: string}>()
+  props<{error: string}>()
 );
 
-
+export const ClearErrorMessage = createAction(
+  MovieActionTypes.CLEAR_ERROR_MESSAGE
+);

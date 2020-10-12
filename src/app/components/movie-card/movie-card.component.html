@@ -5,14 +5,15 @@
   <div class="movie-card-right-column">
     <div class="movie-data">
       <h2>{{movie.Title}}</h2>
-      <div class="content-bar">
+      <div class="content-bar" *ngIf="movieDetails">
         <div class="rating-runtime">
           <p class="rating">{{movieDetails?.Rated}}</p>
           <p class="runtime">{{movieDetails?.Runtime}}</p>
         </div>
         <p>{{movieDetails?.Released}}</p>
       </div>
-      <p>{{movieDetails?.Plot}}</p>
+      <p *ngIf="movieDetails">{{movieDetails?.Plot}}</p>
+      <list-content-loader primaryColor="#8D989E" *ngIf="!movieDetails"></list-content-loader>
     </div>
     <div class="action-items">
       <a class="imdb-link"mat-flat-button [disableRipple]="true" [href]="'https://www.imdb.com/title/' + movie.imdbID" target="_blank">View on IMDB</a>

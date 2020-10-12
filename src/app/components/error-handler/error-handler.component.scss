@@ -1,0 +1,19 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.errorHandler {
+  display: flex;
+  width: 667px;
+  padding: 16px;
+  background: rgba(244,48,33,.3);
+  border: 2px solid #303436;
+  border-radius: 8px;
+  justify-content: space-between;
+}
+
+button.mat-focus-indicator.mat-fab.mat-button-base.mat-accent {
+  background-color: #f43021;
+}

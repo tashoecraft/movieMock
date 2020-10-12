@@ -2,10 +2,11 @@ import {Injectable} from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import { createEffect, ofType, Actions } from '@ngrx/effects';
 import * as MovieActions from './actions';
-import {catchError, map, mergeMap} from 'rxjs/operators';
-import {MovieLite} from '../models';
-import {of} from 'rxjs';
-import { SessionStorageService} from '../services/session_storage.service';
+import {catchError, filter, map, mergeMap} from 'rxjs/operators';
+import {MovieFull, MovieLite} from '../models';
+import {of, race} from 'rxjs';
+import {selectMovieDetailsByimdbID} from './reducer';
+import {Store} from '@ngrx/store';
 
 
 @Injectable()
@@ -18,8 +19,8 @@ export class MovieEffects {
 
         return MovieActions.GetAllMoviesSuccess({results});
       }),
-      catchError(error => {
-        return of(MovieActions.GetAllMoviesFail({error}));
+      catchError(() => {
+        return of(MovieActions.GetAllMoviesFail({error: `Failed to retrieve movies for search term: ${searchTerm}`}));
       })
     ))
   ));
@@ -36,16 +37,24 @@ export class MovieEffects {
   getMovieDetails$ = createEffect(() => this.actions$.pipe(
     ofType(MovieActions.GetMovie),
     mergeMap(({imdbID}) => {
-      return this.movieService.getMovieById(imdbID).pipe(
-        map((movieDetails) => MovieActions.GetMovieSuccess({result: movieDetails})),
-        catchError(error => of(MovieActions.GetMovieFail({error, imdbID})))
-      );
+      return race<any>([
+        this.store.select(selectMovieDetailsByimdbID(imdbID)).pipe(
+          filter((movieDetails) => !!movieDetails),
+          map((movieDetails: MovieFull) => MovieActions.GetMovieSuccess({result: movieDetails})),
+        ),
+        this.movieService.getMovieById(imdbID).pipe(
+          map((movieDetails: MovieFull) => MovieActions.GetMovieSuccess({result: movieDetails})),
+          catchError(() => of(MovieActions.GetMovieFail({error: `Failed to retrieve data for movie with id: ${imdbID}`})))
+
+      )
+      ]);
     })
   ));
 
 
   constructor(
     private actions$: Actions,
-    private movieService: MovieService
+    private movieService: MovieService,
+    private store: Store
   ) {}
 }

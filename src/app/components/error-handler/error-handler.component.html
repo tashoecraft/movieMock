@@ -1,0 +1,6 @@
+<div class="errorHandler" *ngIf="errorMessage">
+  <p>{{errorMessage}}</p>
+  <button mat-fab (click)="clearMessage()" aria-label="Close error message">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>

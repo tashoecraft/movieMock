@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Store} from '@ngrx/store';
-import { GetAllMovies } from '../../store/actions';
-import {selectMovieDetailsByimdbID, selectMovieList} from '../../store/reducer';
-import {map, tap} from 'rxjs/operators';
+import {ClearErrorMessage, GetAllMovies} from '../../store/actions';
+import {selectErrorMessage, selectMovieDetailsByimdbID, selectMovieList} from '../../store/reducer';
+import {filter, map, tap} from 'rxjs/operators';
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {MovieLite} from '../../models';
 
@@ -11,7 +11,7 @@ import {MovieLite} from '../../models';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   public movieDetailsHash = {};
   public currentSelectedDecade = 2010;
   public updateDecade$: BehaviorSubject<number> = new BehaviorSubject(this.currentSelectedDecade);
@@ -40,13 +40,20 @@ export class HomeComponent implements OnInit {
     })
   );
 
+  public errorMessage$ = this.store.select(selectErrorMessage).pipe(
+    filter(message => !!message)
+  );
+
   public decades = [2020, 2010, 2000, 1990, 1980, 1970, 1960, 1950, 1940];
 
   constructor(private store: Store) {
     this.store.dispatch(GetAllMovies({searchTerm: 'Batman'}));
   }
 
-  ngOnInit(): void {
+  clearErrorMessage(toClear: boolean): void {
+    if (toClear) {
+      this.store.dispatch(ClearErrorMessage());
+    }
   }
 
 }

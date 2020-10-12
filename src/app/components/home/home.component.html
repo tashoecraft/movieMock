@@ -13,6 +13,7 @@
      {{decade}}'s
   </button>
 </nav>
+<app-error-handler [errorMessage]="errorMessage$ | async" (clearErrorMessageEvent)="clearErrorMessage($event)"></app-error-handler>
 <div class="movie-list" *ngFor="let movie of movieListFilteredByYear$ | async">
   <app-movie-card
     [movie]="movie"
