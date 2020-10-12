@@ -1,27 +1,21 @@
-# MovieMock
+To start the project locally:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.6.
+1: npm install
+2: npm start
+3: visit project at locahost:4200
 
-## Development server
+I used Angular and ngrx to create this application. Ngrx is a bit heavy handed/boilerplate heavy for 
+this type of site, but it does provide a nice structure if I ever want to expand it. 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+On load the site requests movies from omdb with the search term Batman. When these return
+each individual movie then requests its more detailed movie data. 
 
-## Code scaffolding
+If sessionStorage is available, the results for each of the above calls will be cached there, this
+helps speed up the app greatly for refreshes, and since all the content is unlikely to change often, serves our needs well.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Test coverage is extremely minimal, and would be the focus of additional work/time. 
 
-## Build
+I did not experience any issues with the movie images so I am merely using the url provided by the data,
+but if the image fails to load, I have included a backup image in assets. 
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+The project is deployed via firebase here: https://moviemock-64375.web.app

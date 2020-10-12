@@ -26,10 +26,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('movieMock');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('movieMock app is running!');
-  });
 });

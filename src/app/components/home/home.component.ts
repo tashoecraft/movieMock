@@ -18,6 +18,9 @@ export class HomeComponent {
 
   private movieList$: Observable<MovieLite[]> = this.store.select(selectMovieList).pipe(
     tap((movies) => {
+      // I have created a hash of movieDetail selectors so that the template can merely subscribe
+      // to the selector without having to invoke a function, preventing any perforamnce impact
+      // with changeDetection
       this.movieDetailsHash = movies.reduce((accum, movie) => {
         accum[movie.imdbID] = this.store.select(selectMovieDetailsByimdbID(movie.imdbID));
         return accum;

@@ -7,14 +7,12 @@ import {MovieFull, MovieLite} from '../../models';
   styleUrls: ['./movie-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieCardComponent implements OnInit {
+export class MovieCardComponent {
 
   constructor() { }
 
   @Input() movie: MovieLite;
 
   @Input() movieDetails: MovieFull;
-  ngOnInit(): void {
-  }
 
 }

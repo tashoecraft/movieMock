@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ErrorHandlerComponent } from './error-handler.component';
+import {AppModule} from '../../app.module';
 
 describe('ErrorHandlerComponent', () => {
   let component: ErrorHandlerComponent;
@@ -8,7 +9,7 @@ describe('ErrorHandlerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ErrorHandlerComponent ]
+      imports: [ AppModule ]
     })
     .compileComponents();
   });

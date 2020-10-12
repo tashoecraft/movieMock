@@ -15,10 +15,7 @@ export class MovieEffects {
   getMovies$ = createEffect(() => this.actions$.pipe(
     ofType(MovieActions.GetAllMovies),
     mergeMap(({searchTerm}) => this.movieService.getMovies(searchTerm).pipe(
-      map((results: MovieLite[]) => {
-
-        return MovieActions.GetAllMoviesSuccess({results});
-      }),
+      map((results: MovieLite[]) => MovieActions.GetAllMoviesSuccess({results})),
       catchError(() => {
         return of(MovieActions.GetAllMoviesFail({error: `Failed to retrieve movies for search term: ${searchTerm}`}));
       })
@@ -28,15 +25,17 @@ export class MovieEffects {
   getMovieSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(MovieActions.GetAllMoviesSuccess),
     mergeMap(({results}) => {
-        return results.map(({imdbID}) => {
-          return MovieActions.GetMovie({imdbID});
-        });
+      return results.map(({imdbID}) => {
+        return MovieActions.GetMovie({imdbID});
+      });
     })
   ));
 
   getMovieDetails$ = createEffect(() => this.actions$.pipe(
     ofType(MovieActions.GetMovie),
     mergeMap(({imdbID}) => {
+      // The reason for the race operator is that the observable from the store *should* finish ahead of retrieving
+      // from sessionStorage, and certainly faster than a network call.
       return race<any>([
         this.store.select(selectMovieDetailsByimdbID(imdbID)).pipe(
           filter((movieDetails) => !!movieDetails),
@@ -45,8 +44,7 @@ export class MovieEffects {
         this.movieService.getMovieById(imdbID).pipe(
           map((movieDetails: MovieFull) => MovieActions.GetMovieSuccess({result: movieDetails})),
           catchError(() => of(MovieActions.GetMovieFail({error: `Failed to retrieve data for movie with id: ${imdbID}`})))
-
-      )
+        )
       ]);
     })
   ));

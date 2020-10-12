@@ -48,11 +48,7 @@ import {APP_BASE_HREF} from '@angular/common';
   ],
   providers: [
     MovieService,
-    SessionStorageService,
-    // {
-    //   provide: APP_BASE_HREF,
-    //   useValue: window.location.pathname,
-    // }
+    SessionStorageService
   ],
   bootstrap: [AppComponent]
 })
