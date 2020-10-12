@@ -21,6 +21,7 @@ import {SessionStorageService} from './services/session_storage.service';
 import {ContentLoaderModule} from '@ngneat/content-loader';
 import { ErrorHandlerComponent } from './components/error-handler/error-handler.component';
 import {MatIconModule} from '@angular/material/icon';
+import {APP_BASE_HREF} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,14 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule,
     ContentLoaderModule
   ],
-  providers: [MovieService, SessionStorageService],
+  providers: [
+    MovieService,
+    SessionStorageService,
+    // {
+    //   provide: APP_BASE_HREF,
+    //   useValue: window.location.pathname,
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

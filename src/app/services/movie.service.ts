@@ -19,7 +19,7 @@ export class MovieService {
     if (sessionStorageValue) {
       return of(sessionStorageValue);
     }
-    return this.httpClient.get(`http://www.omdbapi.com/?s=${searchTerm}&apikey=${this.API_KEY}&type=movie&page=${page}`).pipe(
+    return this.httpClient.get(`https://www.omdbapi.com/?s=${searchTerm}&apikey=${this.API_KEY}&type=movie&page=${page}`).pipe(
       map((results: {Search: MovieLite[]}) => results.Search ),
       tap((results) => {
         this.sessionStorageService.addToSessionStorage(searchTerm, results);
@@ -32,7 +32,7 @@ export class MovieService {
     if (sessionStorageValue) {
       return of(sessionStorageValue);
     }
-    return this.httpClient.get<MovieFull>(`http://www.omdbapi.com/?i=${imdbID}&apikey=${this.API_KEY}`).pipe(
+    return this.httpClient.get<MovieFull>(`https://www.omdbapi.com/?i=${imdbID}&apikey=${this.API_KEY}`).pipe(
       tap((results) => {
         this.sessionStorageService.addToSessionStorage(imdbID, results);
       })
