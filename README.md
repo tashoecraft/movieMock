@@ -8,7 +8,7 @@ I used Angular and ngrx to create this application. Ngrx is a bit heavy handed/b
 this type of site, but it does provide a nice structure if I ever want to expand it. 
 
 On load the site requests movies from omdb with the search term Batman. When these return
-each individual movie then requests its more detailed movie data. 
+each individual movie then requests each movies' more detailed data. 
 
 If sessionStorage is available, the results for each of the above calls will be cached there, this
 helps speed up the app greatly for refreshes, and since all the content is unlikely to change often, serves our needs well.
