@@ -47,7 +47,7 @@ export class HomeComponent {
     filter(message => !!message)
   );
 
-  public decades = [2020, 2010, 2000, 1990, 1980, 1970, 1960, 1950, 1940];
+  public decades = [2010, 2000, 1990, 1980];
 
   constructor(private store: Store) {
     this.store.dispatch(GetAllMovies({searchTerm: 'Batman'}));
